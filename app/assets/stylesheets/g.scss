@@ -1,0 +1,226 @@
+.line-name{
+  font-weight: bold;
+  border-bottom: 2px solid #d9d9d9;
+  border-left: 2px solid #d9d9d9;
+
+}
+.f50px{
+  font-size: 50px;
+}
+
+.f45px{
+  font-size: 45px;
+}
+
+.f40px{
+  font-size: 40px;
+}
+
+.f30px{
+  font-size: 35px;
+}
+
+.f30px{
+  font-size: 30px;
+}
+
+.f25px{
+  font-size: 25px;
+}
+
+.f20px{
+  font-size: 20px;
+}
+.f15px{
+  font-size: 15px;
+}
+
+.f10px{
+  font-size: 10px;
+}
+.hide-class{ display:none; }
+
+.show-class{ display:block; }
+
+.pay-hide-class{ display:none; }
+
+.pay-show-class{ display:block; }
+
+.alert-notice {
+  background-color: #b3b3b3;
+}
+
+.reversed{
+  color: white;
+  background-color: black;
+  border-color: black;
+  border-style: solid;
+}
+
+.pending{
+  color : black;
+  background-color: #d9d9d9;
+  border-color: #d9d9d9;
+  border-style: solid;
+}
+
+.aproved{
+  color: black;
+  background-color:#ffff99;
+  border-color: #ffff99;
+  border-style: solid;
+}
+
+.done{
+  color: black;
+  background-color:#ccff99;
+  border-color: #ccff99;
+  border-style: solid;
+}
+
+.rejected{
+  color: white;
+  border-color: #ff6666;
+  background-color: #ff6666;
+  border-style: solid;
+}
+
+.r-cancel{
+  color: white;
+  background-color:#6600ff;
+  border-color: #6600ff;
+  border-style: solid;
+}
+
+.r-closed{
+  color: White;
+  background-color: black;
+  border-color: dotted;
+  border-color: white;
+}
+
+.pending-alter{
+  color: #d9d9d9;
+  background-color : black;
+  border-color: black;
+  border-style: solid;
+}
+
+.aproved-alter{
+  color: yellow ;
+  background-color: black;
+  border-color: black;
+  border-style: solid;
+}
+
+.done-alter{
+  color: green;
+  background-color: white;
+  border-color: white;
+  border-style: solid;
+}
+
+.rejected-alter{
+  color: red;
+  background-color: black;
+  border-color: black;
+  border-style: solid;
+}
+
+.r-cancel-alter{
+  color: #6600ff;
+  background-color: white;
+  border-color: white;
+  border-style: solid;
+}
+
+
+.whitebg-blackbr-dot{
+  color: black;
+  background-color: white;
+  border-color: white;
+  border: 3px ;
+  border-style: dotted;
+   margin-top: 1px;
+}
+
+.10x{
+  height: 10%;
+}
+
+.alert-notice {
+  background-color: #b3b3b3;
+}
+
+.like-primary {
+  background-color: blue;
+  color: white;
+}
+
+.like-normal {
+  background-color: white;
+  color: black;
+}
+
+
+
+
+.google-cal-1{
+  background-color:#6666ff;
+  color:#e6e6e6;  /*celeste*/
+}
+
+.google-cal-2{
+  background-color:#7bd148;
+  color:#1d1d1d; /*verde claro*/
+}
+
+.google-cal-3{
+  background-color:#cd74e6;
+  color:#e6e6e6; /*morado claro*/
+}
+
+.google-cal-4{
+  background-color:#666666;
+  color:#e6e6e6; /*negro*/
+}
+
+.google-cal-5{
+  background-color:#fad165;
+  color:#1d1d1d; /*amarillo*/
+}
+
+.google-cal-6{
+  background-color:#ff7537;
+  color:#1d1d1d; /*naranjo*/
+}
+
+.google-cal-7{
+  background-color:#4986e7;
+  color:#e6e6e6; /*azul*/
+}
+
+.google-cal-8{
+  background-color:#cca6ac;
+  color:#e6e6e6;/*vino*/
+}
+
+.google-cal-9{
+  background-color:#a47ae2;
+  color:#e6e6e6;/*morado*/
+}
+
+.google-cal-10{
+  background-color:#16a765;
+  color:#e6e6e6; /*verde oscuro*/
+}
+
+.google-cal-11{
+  background-color:#f83a22;
+  color:#e6e6e6; /*rojo*/
+}
+
+.google-cal-null{
+  background-color:black;
+  color:white;
+}

@@ -1,0 +1,43 @@
+<div id="wrapper">
+  <%= render 'shared/sidebar'%>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render 'shared/topbar' %>
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Ordenes</h1>
+        </div>
+        <div class="card shadow">
+          <div class="card-header">
+            tienda libros
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Perfiles de Usuario</h2>
+            <%if @data.present? %>
+            <div class="row">
+              <div class="col-6">
+                <p><b>ID N°</b> <%= @data.id %></p>
+                <p><b>Nombre:</b> <%= @data.name%></p>
+                  <p><b>Apellido:</b> <%= @data.lastname%></p>
+                  <p><b>correo:</b><%= @data.email %></p>
+              </div>
+              <div class="col-6">
+                <%= link_to  edit_profile_path(:id => current_user.id), class:"nav-link"  do %>
+              <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+              Editar perfil
+              <% end %>
+              </div>
+            </div>
+
+            <% else %>
+            <p>Error para cargar el usuario</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= render 'shared/footer' %>
+  </div>
+</div>

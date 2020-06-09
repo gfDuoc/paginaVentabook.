@@ -1,0 +1,53 @@
+<div id="wrapper">
+  <%= render 'shared/sidebar'%>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render 'shared/topbar' %>
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Ordenes</h1>
+        </div>
+        <div class="card shadow">
+          <div class="card-header">
+            tienda libros
+          </div>
+          <div class="card-body">
+            <%if @data.present? %>
+
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Correo</th>
+<th>Nombre</th>
+<th>Apellido</th>
+<th>tipo</th>
+<th>activo?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @data.each do |line|%>
+                <tr>
+                  <td><%= line.id %></td>
+                  <td><%= line.email %></td>
+                  <td><%= line.name %></td>
+                  <td><%= line.lastname %></td>
+                  <td><%= line.typo %></td>
+                  <td><%= line.activate %></td>
+                  <td><%= link_to profile_path(id:line.id) do %><i class="fas fa-file-invoice"></i> <%end%></td>
+                </tr>
+                <%end %>
+              </tbody>
+            </table>
+            <% else %>
+            <p>no hay clientes disponibles</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= render 'shared/footer' %>
+  </div>
+</div>

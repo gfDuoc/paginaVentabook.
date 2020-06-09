@@ -3,20 +3,74 @@
 
   <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
-        <%= render 'shared/topbar' %>
+      <%= render 'shared/topbar' %>
       <div class="container-fluid">
-        <div class="jumbotron">
-          tienda libros
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Ordenes</h1>
+        </div>
+        <div class="card shadow">
+          <div class="card-header">
+            tienda libros
+          </div>
+          <div class="card-body">
+            <%if @orders.present? %>
+            <div class="row">
+              <div class="col-6">
+
+              </div>
+              <div class="col-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Estado orden:</label>
+                  <div class="col-sm-8">
+                    <%= select_tag :indexstatus, options_for_select($order_status), class:'form-control', include_blank: true , onchange:('tablefilter()') %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <table id="indextable" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <td>Cliente</td>
+                  <td>Venedor</td>
+                  <td>entrega</td>
+                  <td>valor</td>
+                  <td>estado</td>
+                  <td>creada</td>
+                  <td>actualizada</td>
+                  <td> →→</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% @orders.each do |line|%>
+                <tr>
+                  <td><%= line["id"] %></td>
+                  <td><%= @gente.find(line["user_id"]).name %></td>
+                  <td><%= @gente.find(line["seller"]).name %></td>
+                  <%if line["place"] !="0"  %>
+                  <td><%= @locas.find(line["place"]).name %></td>
+                  <% else %>
+                  <td> despacho</td>
+                  <% end %>
+                  <td><%= to_num(line["value"]) %></td>
+                  <td><%= line["status"] %></td>
+                  <td><%= date_format(line["created_at"]) %></td>
+                  <td><%= date_format(line["updated_at"]) %></td>
+                  <td><%= link_to order_path(id:line["id"]) do %><i class="fas fa-file-invoice"></i> <%end%></td>
+                </tr>
+                <%end %>
+              </tbody>
+            </table>
+            <%== pagy_bootstrap_nav(@pagy) %>
+            <% else %>
+            <p>no tiene ordenes actualmente</p>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
 
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-          <span>Copyright &copy; Your Website 2019</span>
-        </div>
-      </div>
-    </footer>
+    <%= render 'shared/footer' %>
   </div>
 </div>

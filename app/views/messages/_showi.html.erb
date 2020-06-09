@@ -1,0 +1,31 @@
+<div id="product-modal" class="modal fade">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header  bg-success text-white">
+        <h4 class="modal-title">Mensajes</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <% if @mes.present? %>
+        <p><b>Listado de mensajes:</b></p>
+          <% @mes.each do |item| %>
+        <ul>
+          <li><span class=" text-white bg-<%= mesage_color(item.view) %>"><b>AVISO:</b> <%= mesage_satus( item.view) %></span></li>
+          <li><b>Titulo:</b> <%= item.title %></li>
+          <li><b>Mensaje:</b> <%= item.body %></li>
+          <li><b>Fecha:</b> <%= date_format(item.updated_at) %></li>
+
+        </ul>
+        <% end %>
+        <hr>
+        <% else %>
+        <p><b>Listado de mensajes:</b></p>
+        <h2>no tiene mensajes actualmente</h2>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

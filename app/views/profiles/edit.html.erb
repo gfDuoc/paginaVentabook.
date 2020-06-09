@@ -1,0 +1,98 @@
+<div id="wrapper">
+  <%= render 'shared/sidebar'%>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render 'shared/topbar' %>
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Ordenes</h1>
+        </div>
+        <div class="card shadow">
+          <div class="card-header">
+            tienda libros
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Perfiles de Usuario</h2>
+            <%if @data.present? %>
+                  <%= form_tag( profile_path, action:"update", method: "patch", id: "updateForm", multipart: true) do %>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Nota:</label>
+                  <div class="col-sm-9">
+                    <%= text_field_tag :ID , @data.id, placeholder:"" , class:'form-control', disabled:true %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Nota:</label>
+                  <div class="col-sm-9">
+                    <%= text_field_tag :email , @data.email, placeholder:"" , class:'form-control' , disabled:true%>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Nota:</label>
+                  <div class="col-sm-9">
+                    <%= text_field_tag :name , @data.name, placeholder:"" , class:'form-control' %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Nota:</label>
+                  <div class="col-sm-9">
+                    <%= text_field_tag :lastname , @data.lastname, placeholder:"" , class:'form-control' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% if current_user.id ==1 %>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Tipo:</label>
+                  <div class="col-sm-9">
+                    <%= select_tag :typo, options_for_select($user_types, :selected=>@data.typo), class:'form-control', include_blank: true %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Activo?:</label>
+                  <div class="col-sm-9">
+                  <%= select_tag :activate, options_for_select($user_activate, :selected=>@data.activate), class:'form-control', include_blank: true %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <div class="col">
+                    <%= submit_tag 'Guardar', class:'btn btn-success' %>
+                  </div>
+                  <div class="col">
+                    <%= link_to 'volver', profile_path(:id => current_user.id) , class:'btn btn-light' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+            <% else %>
+            <p>Error para cargar el usuario</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= render 'shared/footer' %>
+  </div>
+</div>

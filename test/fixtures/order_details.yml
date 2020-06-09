@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order: one
+  book: one
+  quantity: 
+  value: 
+
+two:
+  order: two
+  book: two
+  quantity: 
+  value: 

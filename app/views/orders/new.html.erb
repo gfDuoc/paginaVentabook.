@@ -1,0 +1,136 @@
+<div id="wrapper">
+  <%= render 'shared/sidebar'%>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render 'shared/topbar' %>
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Ordenes</h1>
+        </div>
+        <div class="card shadow">
+          <div class="card-header">
+            Nueva Orden
+          </div>
+          <div class="card-body">
+            <%if @inv.present? %>
+            <%= form_tag( orders_path, action:"create", method: "post", id: "updateForm", multipart: true) do %>
+            <%= hidden_field_tag "status" , "nueva" %>
+
+            <div class="row">
+              <%if current_user.typo == "worker"%>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Cliente</label>
+                  <div class="col-sm-9">
+                    <%= select_tag :client_id, options_from_collection_for_select(@people,:id, :email), class:'form-control', include_blank: true %>
+                  </div>
+                </div>
+              </div>
+              <%= hidden_field_tag "seller" , current_user.id %>
+              <% else %>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">a nombre</label>
+                  <div class="col-sm-9">
+                    <%= text_field_tag "client_name",current_user.name+" "+current_user.last_name , class:'form-control', readonly: true %>
+                    <%= hidden_field_tag "client_id" , current_user.id %>
+                    <%= hidden_field_tag "seller" , 1 %>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Nota:</label>
+                  <div class="col-sm-9">
+                    <%= text_field_tag :note , '', placeholder:"" , class:'form-control' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Donde:</label>
+                  <div class="col-sm-9">
+                    <%= select_tag :location, options_for_select(@loca.collect {|p| [ p['name'],p['id'] ]}), class:'form-control', include_blank: true %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <div class="table-responsive">
+                  <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                          <thead>
+                            <tr role="row">
+                              <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 160px;">Codigo</th>
+                              <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 248px;" ding">Nombre</th>
+                              <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 117px;" ng">valor</th>
+                              <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 52px;" >Disponible</th>
+                              <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 109px;" ending">Tienda</th>
+                              <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 101px;" ng">Quiero</th></tr>
+                            </thead>
+                            <tfoot>
+                              <tr>
+                                <th rowspan="1" colspan="1">Codigo</th>
+                                <th rowspan="1" colspan="1">Nombre</th>
+                                <th rowspan="1" colspan="1">Valor</th>
+                                <th rowspan="1" colspan="1">Cantidad</th>
+                                <th rowspan="1" colspan="1">Tienda</th>
+                                <th rowspan="1" colspan="1">Quiero</th>
+                              </tr>
+                            </tfoot>
+                            <tbody>
+                              <% @inv.each do |line| %>
+                              <tr class="odd">
+                                <td><%= line["book_id"] %></td>
+                                <td><%= line["book_name"] %></td>
+                                <td><%= line["value"] %></td>
+                                <td><%= line["quantity"].to_i-line["asked"].to_i %></td>
+                                <td><%= line["store"] %></td>
+                                <td><%= number_field_tag "lines[][quant]",0, class:'form-control' %>
+                                  <%= hidden_field_tag "lines[][book]" , line["book_id"] %>
+                                  <%= hidden_field_tag "lines[][value]" , line["value"] %>
+                                </td>
+                              </tr>
+                              <% end %>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <div class="col">
+                      <%= submit_tag 'Guardar', class:'btn btn-success' %>
+                    </div>
+                    <div class="col">
+                      <%= link_to 'volver', orders_path , class:'btn btn-light' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <% end %>
+              <% else %>
+              <%= link_to 'volver', orders_path , class:'btn btn-light' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <%= render 'shared/footer' %>
+    </div>
+  </div>

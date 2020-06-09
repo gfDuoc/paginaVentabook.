@@ -1,0 +1,108 @@
+<div id="wrapper">
+  <%= render 'shared/sidebar'%>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render 'shared/topbar' %>
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Ordenes</h1>
+        </div>
+        <div class="card shadow">
+          <div class="card-header">
+            tienda libros
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">Detalle Orden</h2>
+            <%if @data.present? %>
+            <div class="row">
+              <div class="col-6">
+                <p><b>Orden N°</b> <%= @data["id"] %></p>
+                <p><b>creada:</b> <%= date_format(@data["created_at"])%></p>
+                <p><b>Cod. cliente:</b> <%= @data["user_id"]%></p>
+                <p><b>Cliente:</b> <%= @data["user_data"]["name"]%>  <%= @data["user_data"]["lastname"]%></p>
+                <p><b>Ubicación:</b>  <%= @data["location_data"].first["name"] %></p>
+                <p class="text-primary"><b>Status:</b><%= @data["status"] %></p>
+              </div>
+              <div class="col-6">
+                <p>&nbsp</p>
+                <p><b>Actulizada:</b> <%= date_format(@data["updated_at"])%></p>
+                <p><b>Cod.Vendedor:</b> <%= @data["seller"] %></p>
+                <p><b>Vendedor:</b> <%= @data["seller_data"]["name"]%>  <%= @data["seller_data"]["lastname"]%></p>
+                <p><b>calle:</b>  <%= @data["location_data"].first["stret"] %></p>
+                <p><b>Nota:</b><%= @data["note"] %></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Valor</th>
+                      </tr>
+                    </thead>
+                    <% tota = 0%>
+                    <tbody>
+                      <% @data["lines"].each do |line|%>
+                      <tr>
+                        <td><%= line["book_id"]%></td>
+                        <td>nombre</td>
+                        <td><%= line["quantity"]%></td>
+                        <td><%= line["value"]%></td>
+                        <% tota +=line["value"] if line["value"].present? %>
+                      </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-9">
+              </div>
+              <div class="col-3">
+                <p><b>Total:</b>$<%= tota %></p>
+              </div>
+            </div>
+            <%if  current_user.typo == "worker" %>
+            <%= form_tag( order_path, action:"create", method: "PATCH", id: "actualizar", multipart: true) do %>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Estado:</label>
+                  <div class="col-sm-9">
+                    <%= select_tag :status, options_for_select($order_status), class:'form-control', include_blank: true %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">mensaje:</label>
+                  <div class="col-sm-9">
+                    <%= text_field_tag :message , '', placeholder:"" , class:'form-control' %>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <%= hidden_field_tag "id" , @data["id"] %>
+                <%= hidden_field_tag "mini" , true %>
+                <%= submit_tag 'Cambiar', class:'btn btn-success' %>
+              </div>
+            </div>
+            <% end %>
+            <% end %>
+          </div>
+          <% else %>
+          <p>Error para cargar la orden</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+  <%= render 'shared/footer' %>
+</div>
+</div>
