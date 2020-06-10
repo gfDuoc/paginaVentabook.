@@ -6,17 +6,17 @@ class HomeController < ApplicationController
     if Book.all.size == 0
       lo = Location.new( id: 0, name: "Domicilio", stret: "Dirrecion Cliente")
       lo.save
-      lo = Location.new( id: 1, name: "sede alameda", stret: "alameda")
+      lo = Location.new(name: "sede alameda", stret: "alameda")
       lo.save
-      lo = Location.new( id: 2, name: "sede antonio varas", stret: "antonio varas")
+      lo = Location.new(name: "sede antonio varas", stret: "antonio varas")
       lo.save
-      lo = Location.new( id: 3, name: "plaza norte", stret: "mall plaza")
+      lo = Location.new(name: "plaza norte", stret: "mall plaza")
       lo.save
-      bo = Book.new( id: 1, name: "el principito", value: 2000)
+      bo = Book.new(name: "el principito", value: 2000)
       bo.save
-      bo = Book.new( id: 2, name: "la divina comedia", value: 2000)
+      bo = Book.new(name: "la divina comedia", value: 2000)
       bo.save
-      bo = Book.new( id: 3, name: "diccionario", value: 3000)
+      bo = Book.new(name: "diccionario", value: 3000)
       bo.save
       bo = Book.new(name: "la razon de estar contigo", value: 7000)
       bo.save
