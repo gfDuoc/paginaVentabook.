@@ -12,14 +12,18 @@ class OrdersController < ApplicationController
       else
         orden = Order.where(user_id:current_user.id)
         if orden.present?
-        detalles = OrderDetail.where(order_id:orden.ids)
-        me = Message.where(user_id:2).last
-        flash[$flash_status[me.view]] = me.body
-      end
+          detalles = OrderDetail.where(order_id:orden.ids)
+          me = Message.where(user_id:2).last
+          flash[$flash_status[me.view]] = me.body
+        end
         @gente = User.all
         @locas = Location.all
       end #tipo
-      @pagy, @orders =pagy_array( Utils.ordo(orden,detalles))
+      if orden.present?
+        @pagy, @orders =pagy_array( Utils.ordo(orden,detalles))
+      else
+        @pay,@orders = pagy_array([])
+      end
     else
       @pay,@orders = pagy_array([])
     end
@@ -71,7 +75,7 @@ class OrdersController < ApplicationController
         flash["success"] ="orden creada"
         redirect_to action: "show", id: orden.id
       else
-          flash["danger"] ="error al crear"
+        flash["danger"] ="error al crear"
         redirect_back(fallback_location: root_path)
       end
     else
@@ -93,19 +97,19 @@ class OrdersController < ApplicationController
     if params["mini"].present?
       orden = Order.where(id:params[:id]).take
       orden.status = params["status"]
-       te = orden.save
-       if te
-         if params["message"].present?
+      te = orden.save
+      if te
+        if params["message"].present?
           Utils.messenger('Orden actualizada','orden n°'+params[:id]+': '+params["message"],orden.user_id,2)
-         else
-           Utils.messenger('Orden actualizada','orden n°'+params[:id],orden.user_id,2)
-         end
-           flash["success"] ="orden actualizada"
-      redirect_to action: "show", id: orden.id
-    else
-      flash["warning"] ="error  al actualizar"
-      redirect_to action: "index"
-    end
+        else
+          Utils.messenger('Orden actualizada','orden n°'+params[:id],orden.user_id,2)
+        end
+        flash["success"] ="orden actualizada"
+        redirect_to action: "show", id: orden.id
+      else
+        flash["warning"] ="error  al actualizar"
+        redirect_to action: "index"
+      end
     end
 
 

@@ -31,3 +31,20 @@
 
 en:
   hello: "Hello world"
+
+es:
+  pagy:
+
+    item_name:
+      one: "ítem"
+      other: "ítems"
+
+    nav:
+      prev: "&lsaquo;&nbsp;Prev"
+      next: "Siguiente&nbsp;&rsaquo;"
+      gap: "&hellip;"
+
+    info:
+      no_items: "Sin resultados"
+      single_page: "Mostrando %{count} %{item_name}"
+      multiple_pages: "Mostrando %{item_name} %{from}-%{to} de %{count} en total"
