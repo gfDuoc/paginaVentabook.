@@ -30,6 +30,10 @@ class OrdersController < ApplicationController
   end
 
   def new
+    if current_user.name.blank?
+      flash["info"]= "Primero debe completar el registro"
+      redirect_to edit_profile_path(id:current_user.id)
+    end
     inv = Inventory.all
     loca = Location.all
     bo = Book.all
@@ -70,7 +74,7 @@ class OrdersController < ApplicationController
       end
       orden.value = total
       orden.save
-      Utils.messenger('Order creada','Order N°'+orden.id.to_s+" ha sido creada",orden.user_id,2)
+      Utils.messenger('Order creada','Order N°'+orden.id.to_s+" ha sido creada",orden.user_id,1)
       if ret.present? && detail.present?
         flash["success"] ="orden creada"
         redirect_to action: "show", id: orden.id
@@ -100,7 +104,7 @@ class OrdersController < ApplicationController
       te = orden.save
       if te
         if params["message"].present?
-          Utils.messenger('Orden actualizada','orden n°'+params[:id]+': '+params["message"],orden.user_id,2)
+          Utils.messenger('Orden actualizada','orden n°'+params[:id]+': '+params["message"],orden.user_id,1)
         else
           Utils.messenger('Orden actualizada','orden n°'+params[:id],orden.user_id,2)
         end

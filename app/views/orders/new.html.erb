@@ -33,7 +33,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">a nombre</label>
                   <div class="col-sm-9">
-                    <%= text_field_tag "client_name",current_user.name+" "+current_user.last_name , class:'form-control', readonly: true %>
+                    <%= text_field_tag "client_name",current_user.name+" "+current_user.lastname , class:'form-control', readonly: true %>
                     <%= hidden_field_tag "client_id" , current_user.id %>
                     <%= hidden_field_tag "seller" , 1 %>
                   </div>
@@ -94,7 +94,7 @@
                                 <td><%= line["value"] %></td>
                                 <td><%= line["quantity"].to_i-line["asked"].to_i %></td>
                                 <td><%= line["store"] %></td>
-                                <td><%= number_field_tag "lines[][quant]",0, class:'form-control' %>
+                                <td><%= number_field_tag "lines[][quant]",0, class:'form-control', min:0 %>
                                   <%= hidden_field_tag "lines[][book]" , line["book_id"] %>
                                   <%= hidden_field_tag "lines[][value]" , line["value"] %>
                                 </td>
