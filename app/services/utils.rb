@@ -61,7 +61,7 @@ class Utils
     ret = false
     if loca.present?
       loca = loca.as_json(only: [:id, :name])
-      loca << {"id"=>0,"name"=>"Domicilio"}
+      #loca << {"id"=>0,"name"=>"Domicilio"}
       ret = loca
     end
     ret
