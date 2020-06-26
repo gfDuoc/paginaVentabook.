@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
         @gente = User.all
         @locas = Location.all
       else
-        orden = Order.where(user_id:current_user.id)
+        orden = Order.where(client_id:current_user.id)
         if orden.present?
           detalles = OrderDetail.where(order_id:orden.ids)
           me = Message.where(user_id:2).last

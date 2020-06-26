@@ -1,0 +1,81 @@
+<div id="wrapper">
+  <%= render 'shared/sidebar'%>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render 'shared/topbar' %>
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Ordenes</h1>
+        </div>
+        <div class="card shadow">
+          <div class="card-header">
+            Nueva Mensaje
+          </div>
+          <div class="card-body">
+            <%if @gente.present? %>
+            <%= form_tag( orders_path, action:"create", method: "post", id: "updateForm", multipart: true) do %>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Cliente</label>
+                  <div class="col-sm-9">
+                    <%= select_tag :user_id, options_from_collection_for_select(@gente,:id, :email), class:'form-control', include_blank: true %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Estado:</label>
+                  <div class="col-sm-9">
+                    <%= select_tag :location, options_for_select($order_status), class:'form-control', include_blank: true %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Titulo:</label>
+                  <div class="col-sm-9">
+                    <%= text_field_tag :title , '', placeholder:"" , class:'form-control' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">descripción</label>
+                  <div class="col-sm-9">
+                    <%= text_area_tag :table , '' , placeholder:"", class:'form-control' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <div class="col">
+                    <%= submit_tag 'Guardar', class:'btn btn-success' %>
+                  </div>
+                  <div class="col">
+                    <%= link_to 'volver', orders_path , class:'btn btn-light' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <% end %>
+            <% else %>
+            <%= link_to 'volver', orders_path , class:'btn btn-light' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= render 'shared/footer' %>
+  </div>
+</div>

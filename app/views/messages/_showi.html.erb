@@ -24,6 +24,9 @@
         <% end %>
       </div>
       <div class="modal-footer">
+          <% if @mes.present? %>
+          <%= link_to "todos",messages_path, class:"btn-btn-info" %>
+          <% end %>
         <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cerrar</button>
       </div>
     </div>

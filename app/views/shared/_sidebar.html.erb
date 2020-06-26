@@ -32,6 +32,9 @@
     <div id="collapseTree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <%= link_to 'Mis mensajes',  messages_loader_path, class:"collapse-item" , remote: true %>
+        <%if user_signed_in?  && current_user.typo == "worker"%>
+        <%= link_to 'nuevo mensajes', new_message_path, class:"collapse-item" %>
+        <% end %>
       </div>
     </div>
   </li>

@@ -1,0 +1,62 @@
+<div id="wrapper">
+  <%= render 'shared/sidebar'%>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render 'shared/topbar' %>
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Ordenes</h1>
+        </div>
+        <div class="card shadow">
+          <div class="card-header">
+            tienda libros
+          </div>
+          <div class="card-body">
+            <%if @item.present? %>
+            <div class="row">
+              <div class="col-6">
+
+              </div>
+              <div class="col-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Mis mensajes </label>
+                  <div class="col-sm-8">
+                    <%= select_tag :indexstatus, options_for_select($order_status), class:'form-control', include_blank: true , onchange:('tablefilter()') %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <table id="indextable" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>tipo</th>
+                  <td>titulo</td>
+                  <td>fecha</td>
+                  <td> →→</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% @item.each do |line|%>
+                <tr>
+                  <td><span class=" text-white bg-<%= mesage_color(item.view) %>"><b>AVISO:</b> <%= mesage_satus( item.view) %></span></td>
+                  <td> <%= item.title %></td>
+                  <td><%= date_format(item.updated_at) %></td>
+                  <td>ver </td>
+                </tr>
+                <%end %>
+              </tbody>
+            </table>
+            <%== pagy_bootstrap_nav(@pagy) %>
+            <% else %>
+            <p>no tiene ordenes actualmente</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= render 'shared/footer' %>
+  </div>
+</div>
