@@ -1,0 +1,57 @@
+<div id="wrapper">
+  <%= render 'shared/sidebar'%>
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render 'shared/topbar' %>
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Ordenes</h1>
+        </div>
+        <div class="card shadow">
+          <div class="card-header">
+            tienda libros
+          </div>
+          <div class="card-body">
+            <h2> Inventario</h2>
+            <%if @item.present? %>
+
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>libro</th>
+                  <th>ubciacion</th>
+                  <th>valor</th>
+                  <th>cantidad</th>
+                  <th>nota</th>
+                  <th>fecha</th>
+                  <th>actualizar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @item.each do |line|%>
+                <tr>
+                  <td><%= line["id"] %></td>
+                  <td><%= line["book_name"] %></td>
+                  <td><%= line["location_name"] %></td>
+                  <td><%= line["book_value"] %></td>
+                  <td><%= line["quantity"] %></td>
+                  <td><%= line["note"] %></td>
+                  <td><%=date_format(line["updated_at"]) %></td>
+                  <td><%= link_to edit_inventory_path(id:line["id"]) do %><i class="fas fa-box-open"></i> <%end%></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <% else %>
+            <p>no hay Productos en el Inventario</p>
+            <% end %>
+            <hr>
+            <%= link_to 'nueva', new_inventory_path , class:"btn btn-info" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= render 'shared/footer' %>
+  </div>
+</div>

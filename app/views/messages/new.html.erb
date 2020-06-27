@@ -14,7 +14,7 @@
           </div>
           <div class="card-body">
             <%if @gente.present? %>
-            <%= form_tag( orders_path, action:"create", method: "post", id: "updateForm", multipart: true) do %>
+            <%= form_tag( message_path, action:"create", method: "post", id: "updateForm", multipart: true) do %>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group row">

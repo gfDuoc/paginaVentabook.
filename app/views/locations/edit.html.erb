@@ -1,0 +1,30 @@
+<div id="wrapper">
+  <%= render 'shared/sidebar'%>
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render 'shared/topbar' %>
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Ordenes</h1>
+        </div>
+        <div class="card shadow">
+          <div class="card-header">
+            tienda libros
+          </div>
+          <div class="card-body">
+            <h2> actualizar ubiaciones</h2>
+                <%= form_tag( locations_path, action:"update", method: "patch", id: "updateForm", multipart: true) do %>
+                  <label class="">nombre:</label>
+                  <%= text_field_tag :name , @item.name, placeholder:"" , class:'form-control' %>
+                  <label class="">calle:</label>
+                  <%= text_field_tag :stret ,@item.stret, placeholder:"" , class:'form-control' %>
+                    <hr>
+                      <%= submit_tag 'Guardar', class:'btn btn-success' %>
+                <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= render 'shared/footer' %>
+  </div>
+</div>

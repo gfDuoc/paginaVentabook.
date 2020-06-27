@@ -1,0 +1,50 @@
+<div id="wrapper">
+  <%= render 'shared/sidebar'%>
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render 'shared/topbar' %>
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Ordenes</h1>
+        </div>
+        <div class="card shadow">
+          <div class="card-header">
+            tienda libros
+          </div>
+          <div class="card-body">
+            <h2> ubiaciones</h2>
+            <%if @item.present? %>
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>nombre</th>
+                  <th>calle</th>
+                  <th>fecha</th>
+                  <th>revisar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @item.as_json.each do |line|%>
+                <tr>
+                  <td><%= line["id"] %></td>
+                  <td><%= line["name"] %></td>
+                  <td><%= line["stret"] %></td>
+                  <td><%=date_format(line["updated_at"]) %></td>
+                  <td><%= link_to edit_location_path(id:line["id"]) do %><i class="fas fa-store"></i><% end %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <% else %>
+            <p>no hay locaciones</p>
+            <% end %>
+            <hr>
+            <%= link_to 'nueva', new_location_path , class:"btn btn-info" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= render 'shared/footer' %>
+  </div>
+</div>

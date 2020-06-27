@@ -8,5 +8,8 @@ Rails.application.routes.draw do
   resources :profiles, only:[:index,:show,:edit,:update]
   resources :messages
   resources :orders
+  resources :locations, only:[:index,:new,:create,:edit,:update]
+  resources :books, only:[:index,:new,:create,:edit,:update]
+  resources :inventories
   root to:'home#index'
 end

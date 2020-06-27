@@ -46,13 +46,9 @@
                 <% @orders.each do |line|%>
                 <tr>
                   <td><%= line["id"] %></td>
-                  <td><%= @gente.find(line["user_id"]).name %></td>
-                  <td><%= @gente.find(line["seller"]).name %></td>
-                  <%if line["place"] !="0"  %>
-                  <td><%= @locas.find(line["place"]).name %></td>
-                  <% else %>
-                  <td> despacho</td>
-                  <% end %>
+                  <td><%= @gente.find(line["user_id"]).name if line["user_id"].present? %></td>
+                  <td><%= @gente.find(line["seller"]).name if line["seller"].present?%></td>
+                  <td><%= @locas.find(line["place"]).name if line["place"].present? %></td>
                   <td><%= to_num(line["value"]) %></td>
                   <td><%= line["status"] %></td>
                   <td><%= date_format(line["created_at"]) %></td>

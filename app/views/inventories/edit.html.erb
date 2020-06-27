@@ -1,0 +1,52 @@
+<div id="wrapper">
+  <%= render 'shared/sidebar'%>
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render 'shared/topbar' %>
+      <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Ordenes</h1>
+        </div>
+        <div class="card shadow">
+          <div class="card-header">
+            tienda libros
+          </div>
+          <div class="card-body">
+            <h2> Actualizar entrada inventario</h2>
+            <%= form_tag( inventory_path, action:"update", method: "put", id: "updateForm", multipart: true) do %>
+            <div class="row">
+              <div class="col-6">
+                <label class="">libro:</label>
+                <%= select_tag :book_id, (options_from_collection_for_select(@book,:id, :name, @item.book_id)), class:'form-control', include_blank: true %>
+              </div>
+              <div class="col-6">
+                <label class="">Local:</label>
+                <%= select_tag :location_id, options_from_collection_for_select(@loca,:id, :name, @item.location_id), class:'form-control', include_blank: true %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <label class="">nota:</label>
+                <%= text_field_tag :note , @item.note, placeholder:"" , class:'form-control' %>
+              </div>
+              <div class="col-6">
+                <label class="">Cantidad:</label>
+                <%= number_field_tag :quantity , @item.quantity, placeholder:"" , class:'form-control' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <label class="">pedidos:</label>
+                <%= number_field_tag :asked , @item.asked, placeholder:"" , class:'form-control' %>
+              </div>
+            </div>
+            <hr>
+            <%= submit_tag 'Guardar', class:'btn btn-success' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= render 'shared/footer' %>
+  </div>
+</div>
