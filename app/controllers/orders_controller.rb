@@ -47,7 +47,8 @@ class OrdersController < ApplicationController
     detalles = OrderDetail.where(order_id:params[:id])
     gente = User.find(orden.user_id,orden.seller)
     locas = Location.where(id:orden.place)
-    @data = Utils.ordo_plus(orden,detalles,gente,locas)
+    boo = Book.all
+    @data = Utils.ordo_plus(orden,detalles,gente,locas, boo)
     @data = @data.first   if @data.present?
   end
 
@@ -70,7 +71,7 @@ class OrdersController < ApplicationController
         detail.book_id = row["book"]
         detail.quantity = row["quant"]
         total += row["value"].to_i
-        detail.save
+        detail.save if row["quant"].to_i > 0
       end
       orden.value = total
       orden.save

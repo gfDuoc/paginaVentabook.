@@ -13,7 +13,14 @@
             tienda libros
           </div>
           <div class="card-body">
-            <h2 class="card-title">Detalle Orden</h2>
+            <div class="row">
+              <div class="col-6">
+                            <h2 class="card-title">Detalle Orden</h2>
+              </div>
+              <div class="col-6">
+                  <td><%= link_to edit_order_path(id:params["id"]) do %><span>Editar <i class="fas fa-file-signature"></i></span> <%end%></td>
+              </div>
+            </div>
             <%if @data.present? %>
             <div class="row">
               <div class="col-6">
@@ -50,9 +57,9 @@
                       <% @data["lines"].each do |line|%>
                       <tr>
                         <td><%= line["book_id"]%></td>
-                        <td>nombre</td>
+                        <td><%= line["book_name"] %></td>
                         <td><%= line["quantity"]%></td>
-                        <td><%= line["value"]%></td>
+                        <td><%= line["value"] %></td>
                         <% tota +=line["value"] if line["value"].present? %>
                       </tr>
                       <% end %>

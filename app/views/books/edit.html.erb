@@ -13,7 +13,7 @@
           </div>
           <div class="card-body">
             <h2> actualizar libro</h2>
-            <%= form_tag( books_path, action:"update", method: "put", id: "updateForm", multipart: true) do %>
+            <%= form_tag( book_path, action:"update", method: "put", id: "updateForm", multipart: true) do %>
             <label class="">nombre:</label>
             <%= text_field_tag :name ,@item.name, placeholder:"" , class:'form-control' %>
             <label class="">valor:</label>

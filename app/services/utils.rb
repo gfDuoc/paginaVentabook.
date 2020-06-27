@@ -36,7 +36,7 @@ class Utils
     ret
   end
 
-  def self.ordo_plus(order,detail,gente,loca)
+  def self.ordo_plus(order,detail,gente,loca, boo)
     # Order(id: integer, user_id: integer, seller: integer, status: text, place: string, note: string, value: integer, created_at: datetime, updated_at: datetime)
     #OrderDetail(id: integer, order_id: integer, book_id: integer, quantity: integer, value: integer, created_at: datetime, updated_at: datetime)
     ret = false
@@ -45,11 +45,20 @@ class Utils
       tempo = order.as_json
       tempo["lines"]= []
       detail.each do|bana|
-        tempo["lines"] << bana.as_json
+        t = bana.as_json
+        b = boo.find(bana.book_id)
+        t["book_name"] = b.name
+        t["book_value"] = b.value
+        tempo["lines"] << t
       end#details
+      if gente.class.to_s  == 'Array'
       gente.each do |pepo|
         tempo["user_data"] = pepo.as_json if pepo.id == tempo["user_id"]
         tempo["seller_data"]= pepo.as_json if pepo.id == tempo["seller"]
+      end
+      else
+        tempo["user_data"] = gente.as_json if gente.id == tempo["user_id"]
+        tempo["seller_data"]= gente.as_json if gente.id == tempo["seller"]
       end
       tempo["location_data"] = loca.as_json
       ret << tempo

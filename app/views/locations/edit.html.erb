@@ -13,14 +13,15 @@
           </div>
           <div class="card-body">
             <h2> actualizar ubiaciones</h2>
-                <%= form_tag( locations_path, action:"update", method: "patch", id: "updateForm", multipart: true) do %>
-                  <label class="">nombre:</label>
-                  <%= text_field_tag :name , @item.name, placeholder:"" , class:'form-control' %>
-                  <label class="">calle:</label>
-                  <%= text_field_tag :stret ,@item.stret, placeholder:"" , class:'form-control' %>
-                    <hr>
-                      <%= submit_tag 'Guardar', class:'btn btn-success' %>
-                <% end %>
+            <%= form_tag( location_path, action:"update", method: "put", id: "updateForm") do %>
+            <label class="">nombre:</label>
+            <%= text_field_tag :name , @item.name, placeholder:"" , class:'form-control' %>
+            <label class="">calle:</label>
+            <%= text_field_tag :stret ,@item.stret, placeholder:"" , class:'form-control' %>
+            <hr>
+            <%= hidden_field_tag "id" , params["id"] %>
+            <%= submit_tag 'Guardar', class:'btn btn-success' %>
+            <% end %>
           </div>
         </div>
       </div>

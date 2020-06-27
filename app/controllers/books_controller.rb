@@ -29,6 +29,7 @@ class BooksController < ApplicationController
 
   def update
     b = Book.find(params[:id])
+    redirect_back(fallback_location: root_path) if b.blank?
     b.name = params[:name]
     b.value = params[:value]
     ret = b.save

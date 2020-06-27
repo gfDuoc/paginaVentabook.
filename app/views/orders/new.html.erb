@@ -23,7 +23,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Cliente</label>
                   <div class="col-sm-9">
-                    <%= select_tag :client_id, options_from_collection_for_select(@people,:id, :email), class:'form-control', include_blank: true %>
+                    <%= select_tag :client_id, options_from_collection_for_select(@people,:id, :email), class:'form-control', include_blank: true, required: true %>
                   </div>
                 </div>
               </div>
@@ -54,7 +54,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Donde:</label>
                   <div class="col-sm-9">
-                    <%= select_tag :location, options_for_select(@loca.collect {|p| [ p['name'],p['id'] ]}), class:'form-control', include_blank: true %>
+                    <%= select_tag :location, options_for_select(@loca.collect {|p| [ p['name'],p['id'] ]}), class:'form-control', include_blank: true, required: true %>
                   </div>
                 </div>
               </div>

@@ -47,7 +47,8 @@ class InventoriesController < ApplicationController
   end
 
   def update
-    l = Inventory.find(paramsz[:id])
+    l = Inventory.find(params[:id])
+    redirect_back(fallback_location: root_path) if l.blank?
     l.note = params[:note]
     l.quantity = params[:quantity]
     l.asked = params[:asked]

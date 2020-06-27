@@ -27,4 +27,19 @@ def create
   end
 end
 
+def update
+  l = Location.find(params["id"])
+  redirect_back(fallback_location: root_path) if l.blank?
+  l.name = params[:name]
+  l.stret = params[:stret]
+  ret = l.save
+  if ret
+    flash["success"] ="locacion actualizada"
+    redirect_to controller:'locations', action: "index"
+  else
+    flash["danger"] ="error al crear"
+    redirect_back(fallback_location: root_path)
+  end
+end
+
 end

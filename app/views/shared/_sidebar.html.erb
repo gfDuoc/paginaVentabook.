@@ -14,7 +14,7 @@
 
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-      <i class="fas fa-fw fa-cog"></i>
+    <i class="fas fa-file-invoice"></i>
       <span>Ordenes</span>
     </a>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -26,7 +26,7 @@
   </li>
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTree" aria-expanded="true" aria-controls="collapseTwo">
-      <i class="fas fa-fw fa-cog"></i>
+      <i class="fas fa-comment-dots"></i>
       <span>Notificaciones</span>
     </a>
     <div id="collapseTree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -38,13 +38,46 @@
       </div>
     </div>
   </li>
-
-
-
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">
-
-  <!-- Sidebar Toggler (Sidebar) -->
-
+  <%if user_signed_in?  && current_user.typo == "worker"%>
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseIII" aria-expanded="true" aria-controls="collapseIII">
+      <i class="fas fa-store"></i>
+      <span>Ubicaciones</span>
+    </a>
+    <div id="collapseIII" class="collapse" aria-labelledby="headingIII" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <%= link_to 'listado', locations_path, class:"collapse-item" %>
+        <%= link_to 'nueva ', new_location_path, class:"collapse-item" %>
+      </div>
+    </div>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseIV" aria-expanded="true" aria-controls="collapseIV">
+      <i class="fas fa-book"></i>
+      <span>Libros</span>
+    </a>
+    <div id="collapseIV" class="collapse" aria-labelledby="headingIV" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <%= link_to 'listado', books_path, class:"collapse-item" %>
+        <%= link_to 'nuevo ', new_book_path, class:"collapse-item" %>
+      </div>
+    </div>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseV" aria-expanded="true" aria-controls="collapseV">
+      <i class="fas fa-box-open"></i>
+      <span>Inventario</span>
+    </a>
+    <div id="collapseV" class="collapse" aria-labelledby="headingV" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <%= link_to 'Actual', inventories_path, class:"collapse-item" %>
+        <%= link_to 'ingresar ', new_inventory_path, class:"collapse-item" %>
+      </div>
+    </div>
+  </li>
+  <hr class="sidebar-divider d-none d-md-block">
+  <% end %>
 </ul>
 <!-- End of Sidebar -->

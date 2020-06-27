@@ -1,6 +1,5 @@
 <div id="wrapper">
   <%= render 'shared/sidebar'%>
-
   <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
       <%= render 'shared/topbar' %>
@@ -13,50 +12,41 @@
             tienda libros
           </div>
           <div class="card-body">
+            <h2> ubiaciones</h2>
             <%if @item.present? %>
-            <div class="row">
-              <div class="col-6">
-
-              </div>
-              <div class="col-6">
-                <div class="form-group row">
-                  <label class="col-sm-4 col-form-label">Mis mensajes </label>
-                  <div class="col-sm-8">
-                    <%= select_tag :indexstatus, options_for_select($order_status), class:'form-control', include_blank: true , onchange:('tablefilter()') %>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <hr>
-            <table id="indextable" class="table table-bordered">
+            <table class="table table-sm">
               <thead>
                 <tr>
-                  <th>tipo</th>
-                  <td>titulo</td>
-                  <td>fecha</td>
-                  <td> →→</td>
+                  <th>id</th>
+                  <th>aviso:</th>
+                  <th>titulo</th>
+                  <th>usuario</th>
+                  <th>fecha</th>
+                  <th>revisar</th>
                 </tr>
               </thead>
               <tbody>
-                <% @item.each do |line|%>
+                <% @item.as_json.each do |line|%>
                 <tr>
-                  <td><span class=" text-white bg-<%= mesage_color(item.view) %>"><b>AVISO:</b> <%= mesage_satus( item.view) %></span></td>
-                  <td> <%= item.title %></td>
-                  <td><%= date_format(item.updated_at) %></td>
-                  <td>ver </td>
+                  <td><%= line["id"] %></td>
+                  <td class=" text-white bg-<%= mesage_color(line["view"]) %>"> <%= mesage_satus( line["view"]) %></td>
+                  <td><%= line["title"] %></td>
+                  <td><%= line["user_id"] %><%= @user.find(line["user_id"]) if line["user_id"].present? && @user.present? %></td>
+                  <td><%=date_format(line["updated_at"]) %></td>
+                  <td><%= link_to edit_message_path(id:line["id"]) do %><i class="fas fa-comment-dots"></i><% end %></td>
                 </tr>
-                <%end %>
+                <% end %>
               </tbody>
             </table>
-            <%== pagy_bootstrap_nav(@pagy) %>
             <% else %>
-            <p>no tiene ordenes actualmente</p>
+            <p>no hay locaciones</p>
             <% end %>
+            <hr>
+            <%= link_to 'nueva', new_location_path , class:"btn btn-info" %>
           </div>
         </div>
       </div>
     </div>
-
     <%= render 'shared/footer' %>
   </div>
 </div>
