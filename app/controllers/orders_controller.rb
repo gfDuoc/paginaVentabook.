@@ -63,6 +63,7 @@ class OrdersController < ApplicationController
       orden.user_id =  params["client_id"]
       orden.seller = params["seller"]
       orden.place = params["location"]
+      orden.note = params["note"]
       orden.value = 0
       ret = orden.save
       params["lines"].each do |row|
@@ -75,7 +76,7 @@ class OrdersController < ApplicationController
       end
       orden.value = total
       orden.save
-      Utils.messenger('Order creada','Order N°'+orden.id.to_s+" ha sido creada",orden.user_id,1)
+      Utils.messenger('Order creada','Order N°'+orden.id.to_s+" ha sido creada",orden.user_id,0)
       if ret.present? && detail.present?
         flash["success"] ="orden creada"
         redirect_to action: "show", id: orden.id
@@ -90,24 +91,61 @@ class OrdersController < ApplicationController
   end
 
   def edit
+    @people = User.all  if current_user.typo == "worker"
     orden = Order.where(id:params[:id]).take
     detalles = OrderDetail.where(order_id:params[:id])
     gente = User.find(orden.user_id,orden.seller)
     @loca = Location.where(id:orden.place)
-    @data = Utils.ordo_plus(orden,detalles,gente,@loca)
+      boo = Book.all
+    @data = Utils.ordo_plus(orden,detalles,gente,@loca,boo)
+    puts (@data)
     @data = @data.first   if @data.present?
   end
 
   def update
+    puts params
     if params["mini"].present?
       orden = Order.where(id:params[:id]).take
       orden.status = params["status"]
+      stum = $order_status.find_index(params["status"])
       te = orden.save
       if te
         if params["message"].present?
-          Utils.messenger('Orden actualizada','orden n°'+params[:id]+': '+params["message"],orden.user_id,1)
+          Utils.messenger('Orden actualizada','orden n°'+params[:id]+': '+params["message"],orden.user_id,stum)
         else
-          Utils.messenger('Orden actualizada','orden n°'+params[:id],orden.user_id,2)
+          Utils.messenger('Orden actualizada','orden n°'+params[:id],orden.user_id,stum)
+        end
+        flash["success"] ="orden actualizada"
+        redirect_to action: "show", id: orden.id
+      else
+        flash["warning"] ="error  al actualizar"
+        redirect_to action: "index"
+      end
+    else
+      orden = Order.where(id:params[:id]).take
+      total = 0
+      orden.status = params["status"] if params["status"].present?
+      orden.user_id =  params["client_id"] if params["client_id"].present?
+      orden.seller = params["seller"] if params["seller"].present?
+      orden.place = params["location"] if params["location"].present?
+      orden.note = params["note"] if params["note"].present?
+      orden.value = 0
+      params["lines"].each do |row|
+        detail = OrderDetail.find(row["lineid"])
+        detail.order_id = orden.id
+        detail.book_id = row["book"]
+        detail.quantity = row["quant"]
+        total += row["value"].to_i
+        detail.save if row["quant"].to_i > 0
+      end
+      orden.value = total
+      te = orden.save
+      stum = $order_status.find_index(orden.status)
+      if te
+        if params["message"].present?
+          Utils.messenger('Orden actualizada','orden n°'+params[:id]+': '+params["message"],orden.user_id,stum)
+        else
+          Utils.messenger('Orden actualizada','orden n°'+params[:id],orden.user_id,stum)
         end
         flash["success"] ="orden actualizada"
         redirect_to action: "show", id: orden.id
@@ -116,6 +154,7 @@ class OrdersController < ApplicationController
         redirect_to action: "index"
       end
     end
+
 
 
   end

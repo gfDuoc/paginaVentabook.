@@ -31,7 +31,7 @@
                   <td><%= line["id"] %></td>
                   <td class=" text-white bg-<%= mesage_color(line["view"]) %>"> <%= mesage_satus( line["view"]) %></td>
                   <td><%= line["title"] %></td>
-                  <td><%= line["user_id"] %><%= @user.find(line["user_id"]) if line["user_id"].present? && @user.present? %></td>
+                  <td><%= line["user_id"] %>: <%= @user.find(line["user_id"]).first.first.email if line["user_id"].present? && @user.present? %></td>
                   <td><%=date_format(line["updated_at"]) %></td>
                   <td><%= link_to edit_message_path(id:line["id"]) do %><i class="fas fa-comment-dots"></i><% end %></td>
                 </tr>

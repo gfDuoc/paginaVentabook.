@@ -9,9 +9,10 @@ class MessagesController < ApplicationController
   def index
     if current_user.typo == "worker"
       @pagy, @item = pagy_array(Message.all)
+      @user = [User.find(@item.map { |f| f.user_id })]
     else
       @pagy, @item = pagy_array(Message.where(user_id:current_user.id))
-      @user = [user.find = item.map { |f| f.user_id }]
+      @user = [User.find(@item.map { |f| f.user_id })]
     end
 
   end
